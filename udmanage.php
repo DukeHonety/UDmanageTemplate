@@ -16,7 +16,7 @@ function udmanage_table(){
 	  id mediumint(11) NOT NULL AUTO_INCREMENT,
 	  user_name varchar(80) NOT NULL,
 	  user_mail varchar(80) NOT NULL,
-	  amazon_id varchar(80) NOT NULL,
+	  amazon_id mediumint(11) NOT NULL,
 	  usein_7day boolean NOT NULL,
 	  star_rate tinyint (5) NOT NULL,
 	  modify_date datetime NOT NULL,

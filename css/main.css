@@ -9,10 +9,14 @@
     align-content: center;
 }
 .udmanage table tr.title th{
-    height: 50px;
+    /* height: 50px; */
 }
 
 .udmanage table tr td{
     text-align: center;
     cursor: pointer;
+}
+
+.udmanage table tr td.starrate{
+    color:green;
 }

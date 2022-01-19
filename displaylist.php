@@ -45,16 +45,24 @@ if(isset($_GET['delid'])){
 				$starrate = $entry->star_rate;
 				$datetime = $entry->modify_date;
 
-				$usein = $usein == 1 ? "true" : "false";
+				$usein = $usein >= 1 ? "<i class='fas fa-shopping-cart'></i>" : " ";
 				echo "<tr>
 					<td>".$count."</td>
 					<td>".$name."</td>
 					<td>".$gmail."</td>
 					<td>".$amazone_id."</td>
-					<td>".$usein."</td>
-					<td>".$starrate."</td>
+					<td class='text-primary'>".$usein."</td>
+					<td class='starrate'>";
+					for ( $i = 0; $i < 5; $i++)
+					{
+						if ($starrate <= $i)
+							echo '<i class="far fa-star"></i>';
+						else
+							echo '<i class="fas fa-star"></i>';
+					}
+				echo "</td>
 					<td>".$datetime."</td>
-					<td><a num='".$id."' class='delete'><i class='fa fa-trash'></i></a></td>
+					<td><a href='' num='".$id."' class='delete hover-white' alt='Click here to delete record.'><i class='fas fa-times' ></i></a></td>
 				</tr>
 				";
 				$count++;
@@ -71,5 +79,4 @@ if(isset($_GET['delid'])){
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="<?php echo plugins_url('/udmanage/plugins/jquery-3.6.0.min.js'); ?>"></script>
 <script src="<?php echo plugins_url('/udmanage/plugins/fancyTable.min.js'); ?>"></script>
-
 <script src="<?php echo plugins_url('/udmanage/js/template.js'); ?>"></script>

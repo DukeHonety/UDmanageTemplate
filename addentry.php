@@ -35,15 +35,15 @@ if(isset($_POST['but_submit'])){
 		</tr>
 		<tr>
 			<td>Amazon order id</td>
-			<td><input type='text' name='txt_amazonid'></td>
+			<td><input type='number' name='txt_amazonid'></td>
 		</tr>
 		<tr>
 			<td>Use in 7 days</td>
-			<td><input type='number' name='txt_usein'></td>
+			<td><input type='checkbox' name='txt_usein'> Have you used our product for at least 7 days?</td>
 		</tr>
 		<tr>
 			<td>STAR RATING</td>
-			<td><input type='number' name='txt_starrate'></td>
+			<td><input type='number' name='txt_starrate' max="5"></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
