@@ -6,22 +6,21 @@ global $wpdb;
 if(isset($_POST['but_submit'])){
 
 	$name = $_POST['txt_name'];
-	$uname = $_POST['txt_uname'];
 	$email = $_POST['txt_email'];
-	$tablename = $wpdb->prefix."customplugin";
+	$amazon = $_POST['txt_amazonid'];
+	$tablename = $wpdb->prefix."udmanage";
 
-	if($name != '' && $uname != '' && $email != ''){
-		$check_data = $wpdb->get_results("SELECT * FROM ".$tablename." WHERE username='".$uname."' ");
+	if($name != '' && $amazon != '' && $email != ''){
+		$check_data = $wpdb->get_results("SELECT * FROM ".$tablename." WHERE user_mail='".$email."' ");
 	    if(count($check_data) == 0){
-	        $insert_sql = "INSERT INTO ".$tablename."(name,username,email) values('".$name."','".$uname."','".$email."') ";
+	        $insert_sql = "INSERT INTO ".$tablename."(user_name, user_mail, amazon_id, modify_date) values('".$name."','".$email."','".$amazon."','".date("Y-m-d h:i:sa")."') ";
 	        $wpdb->query($insert_sql);
 	        echo "Save sucessfully.";
 	    }
 	}
 }
-
 ?>
-<h1>Add New Entry</h1>
+<h1>Add New User Data</h1>
 <form method='post' action=''>
 	<table>
 		<tr>
@@ -29,12 +28,12 @@ if(isset($_POST['but_submit'])){
 			<td><input type='text' name='txt_name'></td>
 		</tr>
 		<tr>
-			<td>Username</td>
-			<td><input type='text' name='txt_uname'></td>
-		</tr>
-		<tr>
 			<td>Email</td>
 			<td><input type='text' name='txt_email'></td>
+		</tr>
+		<tr>
+			<td>Amazon_id</td>
+			<td><input type='text' name='txt_amazonid'></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>

@@ -15,7 +15,7 @@ function udmanage_table(){
 	$sql = "CREATE TABLE $tablename (
 	  id mediumint(11) NOT NULL AUTO_INCREMENT,
 	  user_name varchar(80) NOT NULL,
-	  user_gmail varchar(80) NOT NULL,
+	  user_mail varchar(80) NOT NULL,
 	  amazon_id varchar(80) NOT NULL,
 	  modify_date datetime NOT NULL,
 	  PRIMARY KEY  (id)
