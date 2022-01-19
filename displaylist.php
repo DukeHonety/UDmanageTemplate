@@ -15,7 +15,7 @@ if(isset($_GET['delid'])){
 <link rel="stylesheet" href="<?php echo plugins_url('/udmanage/css/main.css'); ?>" />
 
 
-<h1>User Data Table </h1>
+<h1>Clients contact table </h1>
 <div class="udmanage">
 	<table id = "usertable" class="table table-bordered table-striped table-hover table-sm">
 		<thead class="table-info">
@@ -62,7 +62,7 @@ if(isset($_GET['delid'])){
 					}
 				echo "</td>
 					<td>".$datetime."</td>
-					<td><a href='' num='".$id."' class='delete hover-white' alt='Click here to delete record.'><i class='fas fa-times' ></i></a></td>
+					<td class='delete'><a num='".$id."' class='delete hover-white' alt='Click here to delete record.'><i class='fas fa-times' ></i></a></td>
 				</tr>
 				";
 				$count++;

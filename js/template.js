@@ -7,7 +7,7 @@ $(document).ready(function(){
         paginationClass:"btn btn-normal btn-outline-primary",
         paginationClassActive:"active",
         pagClosest: 3,
-        perPage: 20,
+        perPage: 10,
         searchable:true,
         globalSearch:true,
         //globalSearchExcludeColumns: [2,5],// exclude column 2 & 5
@@ -26,8 +26,9 @@ $(document).ready(function(){
                 delid : id
                 }, 
                 function(data){
-                    $(this).parent().parent().remove();
+                    //$(this).parent().parent().remove();
             });
+            $(this).parent().parent().remove();
         }
         // href='?page=allusers&delid=".$id."'
     });

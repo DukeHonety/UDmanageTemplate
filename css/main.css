@@ -20,3 +20,7 @@
 .udmanage table tr td.starrate{
     color:green;
 }
+
+.udmanage table tr td.delete{
+    color:black;
+}

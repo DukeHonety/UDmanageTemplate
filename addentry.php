@@ -39,7 +39,7 @@ if(isset($_POST['but_submit'])){
 		</tr>
 		<tr>
 			<td>Use in 7 days</td>
-			<td><input type='checkbox' name='txt_usein'> Have you used our product for at least 7 days?</td>
+			<td><input type='checkbox' name='txt_usein' value="1"> Have you used our product for at least 7 days?</td>
 		</tr>
 		<tr>
 			<td>STAR RATING</td>
