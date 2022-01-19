@@ -17,6 +17,8 @@ function udmanage_table(){
 	  user_name varchar(80) NOT NULL,
 	  user_mail varchar(80) NOT NULL,
 	  amazon_id varchar(80) NOT NULL,
+	  usein_7day boolean NOT NULL,
+	  star_rate tinyint (5) NOT NULL,
 	  modify_date datetime NOT NULL,
 	  PRIMARY KEY  (id)
 	) $charset_collate;";
@@ -32,7 +34,6 @@ function udmanage_menu() {
     add_menu_page("User Data Manage", "User Data Manage","manage_options", "myplugin", "displayList",plugins_url('/udmanage/img/icon.png'));
     add_submenu_page("myplugin","User Data", "User Data","manage_options", "allusers", "displayList");
     add_submenu_page("myplugin","Add new Data", "Add new Data","manage_options", "addnewdata", "addEntry");
-   	
 }
 
 add_action("admin_menu", "udmanage_menu");
