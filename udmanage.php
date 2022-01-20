@@ -31,9 +31,9 @@ register_activation_hook( __FILE__, 'udmanage_table' );
 // Add menu
 function udmanage_menu() {
 
-    add_menu_page("User Data Manage", "User Data Manage","manage_options", "myplugin", "displayList",plugins_url('/udmanage/img/icon.png'));
+    add_menu_page("User Data Manage", "User Data Manage","manage_options", "myplugin", "displayList",esc_url( plugins_url( '/img/icon.png', __FILE__ ) ) );
     add_submenu_page("myplugin","User Data", "User Data","manage_options", "allusers", "displayList");
-    add_submenu_page("myplugin","Add new Data", "Add new Data","manage_options", "addnewdata", "addEntry");
+    //add_submenu_page("myplugin","Add new Data", "Add new Data","manage_options", "addnewdata", "addEntry");
 }
 
 add_action("admin_menu", "udmanage_menu");
