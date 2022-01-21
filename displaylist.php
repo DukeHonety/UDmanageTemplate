@@ -27,13 +27,14 @@ if(isset($_GET['delid'])){
 		// 	}
 		// }
 
-		$entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entry_fields");
-		if(count($entriesList) > 0){
-			foreach($entriesList as $entry){
-				var_dump($entry->Usein7days);
-				echo '<br>';
-			}
-		}
+		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entry_fields");
+		// if(count($entriesList) > 0){
+		// 	foreach($entriesList as $entry){
+		// 		var_dump($entry);
+		// 		echo '<br>';
+		// 	}
+		// }
+		// echo '<br>';
 		// exit;
 	?>
 	<table id = "usertable" class="table table-bordered table-striped table-hover table-sm">
@@ -60,7 +61,7 @@ if(isset($_GET['delid'])){
 			$record = array();
 			$testFlag = 0;
 			foreach($entriesList as $entry){
-				$field_id = $entry->field_id;
+				$field_id = $entry->field_id; // 1,4,2,36,15,12
 				if ($testFlag == 0)
 					$testFlag = $field_id;
 				if ($testFlag == $field_id && $startVal!= 0 ){
@@ -72,7 +73,7 @@ if(isset($_GET['delid'])){
 					$startVal++;
 					array_push($record, $entry->date);
 				}
-				if ($startVal > 6)
+				if ($startVal > 5)
 				{
 					$startVal = 0;
 					array_push($userArray, $record);
@@ -81,6 +82,7 @@ if(isset($_GET['delid'])){
 				array_push($record,$entry->value);
 				$startVal++;
 			}
+			array_push($userArray, $record);
 			foreach($userArray as $entry){
 				//$id = $entry->id;
 				$name = $entry[0];
@@ -90,7 +92,7 @@ if(isset($_GET['delid'])){
 				$starrate = $entry[4];
 				$improves = $entry[5];
 				$dates = $entry[6];
-				$usein = $usein == "YES" ? "<i class='fas fa-shopping-cart'></i>" : " ";
+				$usein = $usein == "YES" || $usein == "Yes" ? "<i class='fas fa-shopping-cart'></i>" : " ";
 				echo "<tr>
 					<td>".$count."</td>
 					<td>".$name."</td>
