@@ -18,8 +18,49 @@ if(isset($_GET['delid'])){
 <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"> -->
 <link rel="stylesheet" href="<?php echo esc_url( plugins_url( '/css/main.css', __FILE__ ) ) ?>" crossorigin="anonymous" >
 
+<?php
+// get data
+	$entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entry_fields WHERE form_id = 197");
+	if(count($entriesList) > 0){
+		$userArray = array();
+		$record = array();
+		$testFlag = 0;
+		$date = "";
+		$entry_id = "";
+		foreach($entriesList as $entry){
+			$field_id = $entry->field_id; // 1,4,2,36,15,12
+			$date = $entry->date;
+			$entry_id = $entry->entry_id;
+			if ($testFlag == 0)
+				$testFlag = $field_id;
+			if ($testFlag == $field_id && $startVal!= 0 ){
+				for ($i = $startVal; $i <=5; $i++)
+				{
+					array_push($record, "");
+					$startVal++;
+				}
+				$startVal++;
+				array_push($record, $entry->date);
+				array_push($record, $entry->entry_id);
+			}
+			if ($startVal > 5)
+			{
+				$startVal = 0;
+				array_push($userArray, $record);
+				$record = array();
+			}
+			array_push($record,$entry->value);
+			$startVal++;
+		}
+		array_push($record, $date);
 
-<h1>Clients contact table </h1>
+		array_push($record, $entry_id);
+		array_push($userArray, $record);
+	}
+
+?>
+
+<h1>Clients contact table (<span id="startP"></span> - <span id="endP"></span> / <?php echo count($userArray); ?>)</h1>
 <div class="udmanage">
 	<?php
 		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpfm_backup LIMIT 5");
@@ -64,44 +105,9 @@ if(isset($_GET['delid'])){
 		<tbody>
 		<?php
 		// Select records
-		$entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entry_fields WHERE form_id = 197");
 		if(count($entriesList) > 0){
 			$count = 1;
 			$startVal = 0;
-			$userArray = array();
-			$record = array();
-			$testFlag = 0;
-			$date = "";
-			$entry_id = "";
-			foreach($entriesList as $entry){
-				$field_id = $entry->field_id; // 1,4,2,36,15,12
-				$date = $entry->date;
-				$entry_id = $entry->entry_id;
-				if ($testFlag == 0)
-					$testFlag = $field_id;
-				if ($testFlag == $field_id && $startVal!= 0 ){
-					for ($i = $startVal; $i <=5; $i++)
-					{
-						array_push($record, "");
-						$startVal++;
-					}
-					$startVal++;
-					array_push($record, $entry->date);
-					array_push($record, $entry->entry_id);
-				}
-				if ($startVal > 5)
-				{
-					$startVal = 0;
-					array_push($userArray, $record);
-					$record = array();
-				}
-				array_push($record,$entry->value);
-				$startVal++;
-			}
-			array_push($record, $date);
-			
-			array_push($record, $entry_id);
-			array_push($userArray, $record);
 			foreach($userArray as $entry){
 				$id = $entry[7];
 				$name = $entry[0];
@@ -146,4 +152,5 @@ if(isset($_GET['delid'])){
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="<?php echo esc_url( plugins_url( '/plugins/jquery-3.6.0.min.js', __FILE__ ) ) ?>" crossorigin="anonymous"></script>
 <script src="<?php echo esc_url( plugins_url( '/plugins/fancyTable.js', __FILE__ ) ); ?>"></script>
+<script> var searchCount = <?php echo count($userArray);?>;</script>
 <script src="<?php echo esc_url( plugins_url( '/js/template.js', __FILE__ ) ); ?>"></script>

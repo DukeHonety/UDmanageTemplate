@@ -1,4 +1,7 @@
+var pageNum = 10;
 $(document).ready(function(){
+    $("span.startP").html("1");
+    $("span.endP").html(pageNum);
     $("#usertable").fancyTable({
         sortColumn:7,// column number for initial sorting
         sortOrder:'desc',// 'desc', 'descending', 'asc', 'ascending', -1 (descending) and 1 (ascending)
@@ -7,7 +10,7 @@ $(document).ready(function(){
         paginationClass:"btn btn-normal btn-outline-primary",
         paginationClassActive:"active",
         pagClosest: 3,
-        perPage: 10,
+        perPage: pageNum,
         searchable:true,
         globalSearch:true,
         //globalSearchExcludeColumns: [2,5],// exclude column 2 & 5
