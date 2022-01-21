@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $("#usertable").fancyTable({
-        sortColumn:0,// column number for initial sorting
-        sortOrder:'asc',// 'desc', 'descending', 'asc', 'ascending', -1 (descending) and 1 (ascending)
+        sortColumn:7,// column number for initial sorting
+        sortOrder:'desc',// 'desc', 'descending', 'asc', 'ascending', -1 (descending) and 1 (ascending)
         sortable:true,
         pagination:true,// default: false
         paginationClass:"btn btn-normal btn-outline-primary",

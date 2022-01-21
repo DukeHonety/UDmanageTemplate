@@ -1,11 +1,13 @@
 <?php 
 
 global $wpdb;
-$tablename = $wpdb->prefix."udmanage";
+//$tablename = $wpdb->prefix."udmanage";
 define( 'DMANGE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 // Delete record
 if(isset($_GET['delid'])){
+	$entry_fields = "npg_wpforms_entry_fields";
+	//$entry_
 	$delid = $_GET['delid'];
 	$wpdb->query("DELETE FROM ".$tablename." WHERE id=".$delid);
 }
@@ -19,19 +21,27 @@ if(isset($_GET['delid'])){
 <h1>Clients contact table </h1>
 <div class="udmanage">
 	<?php
-		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entries LIMIT 10");
+		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpfm_backup LIMIT 5");
 		// if(count($entriesList) > 0){
 		// 	foreach($entriesList as $entry){
-		// 		print_r($entry->fields);
-		// 		echo '<br>';
+		// 		print_r($entry);
+		// 		echo '<br><br>';
 		// 	}
 		// }
-
-		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entry_fields");
+		// echo '////////////////////////////////<br>';
+		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entry_meta LIMIT 5");
 		// if(count($entriesList) > 0){
 		// 	foreach($entriesList as $entry){
 		// 		var_dump($entry);
-		// 		echo '<br>';
+		// 		echo '<br><br>';
+		// 	}
+		// }
+		// echo '//////////////////////////////////////////////<br>';
+		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_tasks_meta LIMIT 5");
+		// if(count($entriesList) > 0){
+		// 	foreach($entriesList as $entry){
+		// 		var_dump($entry);
+		// 		echo '<br><br>';
 		// 	}
 		// }
 		// echo '<br>';
@@ -40,14 +50,14 @@ if(isset($_GET['delid'])){
 	<table id = "usertable" class="table table-bordered table-striped table-hover table-sm">
 		<thead class="table-info">
 			<tr class="title">
-				<th>No</th>
+				<th>Created time</th>
 				<th>Full name</th>
 				<th>Email address</th>
 				<th>Amazon order id</th>
 				<th>Use in 7days</th>
 				<th>Star rate</th>
 				<th>Improve thing</th>
-				<th>Created time</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -60,8 +70,12 @@ if(isset($_GET['delid'])){
 			$userArray = array();
 			$record = array();
 			$testFlag = 0;
+			$date = "";
+			$entry_id = "";
 			foreach($entriesList as $entry){
 				$field_id = $entry->field_id; // 1,4,2,36,15,12
+				$date = $entry->date;
+				$entry_id = $entry->entry_id;
 				if ($testFlag == 0)
 					$testFlag = $field_id;
 				if ($testFlag == $field_id && $startVal!= 0 ){
@@ -71,6 +85,7 @@ if(isset($_GET['delid'])){
 						$startVal++;
 					}
 					$startVal++;
+					array_push($record, $entry->date);
 					array_push($record, $entry->date);
 				}
 				if ($startVal > 5)
@@ -82,6 +97,7 @@ if(isset($_GET['delid'])){
 				array_push($record,$entry->value);
 				$startVal++;
 			}
+			array_push($record, $entry->date);
 			array_push($userArray, $record);
 			foreach($userArray as $entry){
 				//$id = $entry->id;
@@ -94,7 +110,7 @@ if(isset($_GET['delid'])){
 				$dates = $entry[6];
 				$usein = $usein == "YES" || $usein == "Yes" ? "<i class='fas fa-shopping-cart'></i>" : " ";
 				echo "<tr>
-					<td>".$count."</td>
+					<td>".$dates."</td>
 					<td>".$name."</td>
 					<td>".$gmail."</td>
 					<td>".$amazone_id."</td>
@@ -109,10 +125,9 @@ if(isset($_GET['delid'])){
 					}
 				echo "</td>
 					<td>".$improves."</td>
-					<td>".$dates."</td>
 				</tr>
 				";
-				//<td class='delete'><a num='".$id."' class='delete hover-white' alt='Click here to delete record.'><i class='fas fa-times' ></i></a></td>
+				echo "<td class='delete'><a num='".$id."' class='delete hover-white' alt='Click here to delete record.'><i class='fas fa-times' ></i></a></td>";
 				$count++;
 			}
 		}else{
