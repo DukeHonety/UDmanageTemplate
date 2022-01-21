@@ -19,21 +19,21 @@ if(isset($_GET['delid'])){
 <h1>Clients contact table </h1>
 <div class="udmanage">
 	<?php
-		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entries");
+		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entries LIMIT 10");
 		// if(count($entriesList) > 0){
 		// 	foreach($entriesList as $entry){
 		// 		print_r($entry->fields);
 		// 		echo '<br>';
 		// 	}
 		// }
-		// exit;
 
-		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entry_fields LIMIT 100 WHERE form_id = 197");
-		// if(count($entriesList) > 0){
-		// 	foreach($entriesList as $entry){
-		// 		echo $entry->id.", ".$entry->entry_id.", ".$entry->form_id.", ".$entry->field_id.", ".$entry->value.'<br>';
-		// 	}
-		// }
+		$entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entry_fields");
+		if(count($entriesList) > 0){
+			foreach($entriesList as $entry){
+				var_dump($entry->Usein7days);
+				echo '<br>';
+			}
+		}
 		// exit;
 	?>
 	<table id = "usertable" class="table table-bordered table-striped table-hover table-sm">
@@ -45,13 +45,14 @@ if(isset($_GET['delid'])){
 				<th>Amazon order id</th>
 				<th>Use in 7days</th>
 				<th>Star rate</th>
-				<th>Created in</th>
+				<th>Improve thing</th>
+				<th>Created time</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php
 		// Select records
-		$entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entry_fields");
+		$entriesList = $wpdb->get_results("SELECT * FROM npg_wpforms_entry_fields WHERE form_id = 197");
 		if(count($entriesList) > 0){
 			$count = 1;
 			$startVal = 0;
@@ -61,15 +62,17 @@ if(isset($_GET['delid'])){
 			foreach($entriesList as $entry){
 				$field_id = $entry->field_id;
 				if ($testFlag == 0)
-					$field_id = $testFlag;
+					$testFlag = $field_id;
 				if ($testFlag == $field_id && $startVal!= 0 ){
 					for ($i = $startVal; $i <=5; $i++)
 					{
-						array_push($userArray, "");
+						array_push($record, "");
 						$startVal++;
 					}
+					$startVal++;
+					array_push($record, $entry->date);
 				}
-				if ($startVal > 5)
+				if ($startVal > 6)
 				{
 					$startVal = 0;
 					array_push($userArray, $record);
@@ -85,8 +88,8 @@ if(isset($_GET['delid'])){
 				$amazone_id = $entry[2];
 				$usein = $entry[3];
 				$starrate = $entry[4];
-				$datetime = $entry[5];
-
+				$improves = $entry[5];
+				$dates = $entry[6];
 				$usein = $usein == "YES" ? "<i class='fas fa-shopping-cart'></i>" : " ";
 				echo "<tr>
 					<td>".$count."</td>
@@ -103,8 +106,8 @@ if(isset($_GET['delid'])){
 							echo '<i class="fas fa-star"></i>';
 					}
 				echo "</td>
-					<td>".$datetime."</td>
-					
+					<td>".$improves."</td>
+					<td>".$dates."</td>
 				</tr>
 				";
 				//<td class='delete'><a num='".$id."' class='delete hover-white' alt='Click here to delete record.'><i class='fas fa-times' ></i></a></td>
