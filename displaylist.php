@@ -7,9 +7,10 @@ define( 'DMANGE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 // Delete record
 if(isset($_GET['delid'])){
 	$entry_fields = "npg_wpforms_entry_fields";
-	//$entry_
+	$entry_db = "npg_wpforms_entries";
 	$delid = $_GET['delid'];
-	$wpdb->query("DELETE FROM ".$tablename." WHERE id=".$delid);
+	$wpdb->query("DELETE FROM ".$entry_db." WHERE entry_id=".$delid);
+	$wpdb->query("DELETE FROM ".$entry_fields." WHERE entry_id=".$delid);
 }
 ?>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -86,7 +87,7 @@ if(isset($_GET['delid'])){
 					}
 					$startVal++;
 					array_push($record, $entry->date);
-					array_push($record, $entry->date);
+					array_push($record, $entry->entry_id);
 				}
 				if ($startVal > 5)
 				{
@@ -97,10 +98,12 @@ if(isset($_GET['delid'])){
 				array_push($record,$entry->value);
 				$startVal++;
 			}
-			array_push($record, $entry->date);
+			array_push($record, $date);
+			
+			array_push($record, $entry_id);
 			array_push($userArray, $record);
 			foreach($userArray as $entry){
-				//$id = $entry->id;
+				$id = $entry[7];
 				$name = $entry[0];
 				$gmail = $entry[1];
 				$amazone_id = $entry[2];
@@ -124,10 +127,11 @@ if(isset($_GET['delid'])){
 							echo '<i class="fas fa-star"></i>';
 					}
 				echo "</td>
-					<td>".$improves."</td>
-				</tr>
-				";
+					<td>".$improves."</td>";
+				
 				echo "<td class='delete'><a num='".$id."' class='delete hover-white' alt='Click here to delete record.'><i class='fas fa-times' ></i></a></td>";
+				echo "</tr>
+				";
 				$count++;
 			}
 		}else{
