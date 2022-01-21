@@ -57,8 +57,18 @@ if(isset($_GET['delid'])){
 			$startVal = 0;
 			$userArray = array();
 			$record = array();
+			$testFlag = 0;
 			foreach($entriesList as $entry){
 				$field_id = $entry->field_id;
+				if ($testFlag == 0)
+					$field_id = $testFlag;
+				if ($testFlag == $field_id && $startVal!= 0 ){
+					for ($i = $startVal; $i <=5; $i++)
+					{
+						array_push($userArray, "");
+						$startVal++;
+					}
+				}
 				if ($startVal > 5)
 				{
 					$startVal = 0;
@@ -77,7 +87,7 @@ if(isset($_GET['delid'])){
 				$starrate = $entry[4];
 				$datetime = $entry[5];
 
-				$usein = $usein >= 1 ? "<i class='fas fa-shopping-cart'></i>" : " ";
+				$usein = $usein == "YES" ? "<i class='fas fa-shopping-cart'></i>" : " ";
 				echo "<tr>
 					<td>".$count."</td>
 					<td>".$name."</td>
