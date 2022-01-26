@@ -1,8 +1,6 @@
 var pageNum = 10;
 $(document).ready(function(){
-    $("span.startP").html("1");
-    $("span.endP").html(pageNum);
-    $("#usertable").fancyTable({
+    $("table#usertable").fancyTable({
         sortColumn:7,// column number for initial sorting
         sortOrder:'desc',// 'desc', 'descending', 'asc', 'ascending', -1 (descending) and 1 (ascending)
         sortable:true,
@@ -10,15 +8,17 @@ $(document).ready(function(){
         paginationClass:"btn btn-normal btn-outline-primary",
         paginationClassActive:"active",
         pagClosest: 3,
-        perPage: pageNum,
+        perPage: 10,
         searchable:true,
         globalSearch:true,
         //globalSearchExcludeColumns: [2,5],// exclude column 2 & 5
         onInit:function(){
-
+            // console.log("initTable");
         },
             
     });
+    
+    // console.log("opentable");
     $(".udmanage tr a.delete").on("click",function(){
         if ( confirm("Are you sure to delete this record?") )
         {
@@ -29,6 +29,7 @@ $(document).ready(function(){
                 delid : id
                 }, 
                 function(data){
+                    // console.log(data);
                     //$(this).parent().parent().remove();
             });
             $(this).parent().parent().remove();

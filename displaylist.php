@@ -11,6 +11,7 @@ if(isset($_GET['delid'])){
 	$delid = $_GET['delid'];
 	$wpdb->query("DELETE FROM ".$entry_db." WHERE entry_id=".$delid);
 	$wpdb->query("DELETE FROM ".$entry_fields." WHERE entry_id=".$delid);
+	exit;
 }
 ?>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -29,7 +30,6 @@ if(isset($_GET['delid'])){
 		$entry_id = "";
 		foreach($entriesList as $entry){
 			$field_id = $entry->field_id; // 1,4,2,36,15,12
-			$date = $entry->date;
 			$entry_id = $entry->entry_id;
 			if ($testFlag == 0)
 				$testFlag = $field_id;
@@ -40,7 +40,7 @@ if(isset($_GET['delid'])){
 					$startVal++;
 				}
 				$startVal++;
-				array_push($record, $entry->date);
+				array_push($record, $date);
 				array_push($record, $entry->entry_id);
 			}
 			if ($startVal > 5)
@@ -50,17 +50,16 @@ if(isset($_GET['delid'])){
 				$record = array();
 			}
 			array_push($record,$entry->value);
+			$date = $entry->date;
 			$startVal++;
 		}
-		array_push($record, $date);
-
 		array_push($record, $entry_id);
 		array_push($userArray, $record);
 	}
 
 ?>
 
-<h1>Clients contact table (<span id="startP"></span> - <span id="endP"></span> / <?php echo count($userArray); ?>)</h1>
+<h1>Clients contact table</h1>
 <div class="udmanage">
 	<?php
 		// $entriesList = $wpdb->get_results("SELECT * FROM npg_wpfm_backup LIMIT 5");
@@ -152,5 +151,5 @@ if(isset($_GET['delid'])){
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="<?php echo esc_url( plugins_url( '/plugins/jquery-3.6.0.min.js', __FILE__ ) ) ?>" crossorigin="anonymous"></script>
 <script src="<?php echo esc_url( plugins_url( '/plugins/fancyTable.js', __FILE__ ) ); ?>"></script>
-<script> var searchCount = <?php echo count($userArray);?>;</script>
 <script src="<?php echo esc_url( plugins_url( '/js/template.js', __FILE__ ) ); ?>"></script>
+<script> var searchCount = <?php echo count($userArray);?>;</script>
