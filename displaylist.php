@@ -28,6 +28,7 @@ if(isset($_GET['delid'])){
 		$testFlag = 0;
 		$date = "";
 		$entry_id = "";
+		$startVal = 0;
 		foreach($entriesList as $entry){
 			$field_id = $entry->field_id; // 1,4,2,36,15,12
 			$entry_id = $entry->entry_id;
@@ -37,24 +38,25 @@ if(isset($_GET['delid'])){
 				for ($i = $startVal; $i <=5; $i++)
 				{
 					array_push($record, "");
-					$startVal++;
 				}
-				$startVal++;
-				array_push($record, $date);
-				array_push($record, $entry->entry_id);
-			}
-			if ($startVal > 5)
-			{
-				$startVal = 0;
+				array_push($record,$entry->date);
+				array_push($record,$entry->entry_id);
 				array_push($userArray, $record);
 				$record = array();
+				$startVal = 0;
 			}
 			array_push($record,$entry->value);
-			$date = $entry->date;
-			$startVal++;
+			if ( $startVal == 5 )
+			{
+				array_push($record,$entry->date);
+				array_push($record,$entry->entry_id);
+				array_push($userArray, $record);
+				$record = array();
+				$startVal = 0;
+			}
+			else
+				$startVal++;
 		}
-		array_push($record, $entry_id);
-		array_push($userArray, $record);
 	}
 
 ?>
